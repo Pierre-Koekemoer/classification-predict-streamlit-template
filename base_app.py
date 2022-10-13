@@ -29,7 +29,7 @@ import joblib,os
 import pandas as pd
 
 # Vectorizer
-news_vectorizer = open("resources/tfidfvect.pkl","rb") #Pierre Changed this
+news_vectorizer = open("resources/tf_vect.pkl","rb") #Pierre's tfidvectorizer
 tweet_cv = joblib.load(news_vectorizer) # loading your vectorizer from the pkl file
 
 # Load your raw data
@@ -42,7 +42,7 @@ def main():
 	# Creates a main title and subheader on your page -
 	# these are static across all pages
 	st.title("Tweet Classifer")
-	st.subheader("Climate change tweet classification")
+	st.subheader("Climate change tweet classification LightGBM model")
 
 	# Creating sidebar with selection box -
 	# you can create multiple pages this way
@@ -70,7 +70,7 @@ def main():
 			vect_text = tweet_cv.transform([tweet_text]).toarray()
 			# Load your .pkl file with the model of your choice + make predictions
 			# Try loading in multiple models to give the user a choice
-			predictor = joblib.load(open(os.path.join("Logistic_regression.pkl"),"rb")) #Pierre changed this
+			predictor = joblib.load(open(os.path.join("resources/lgbm.pkl"),"rb")) #Pierre's model
 			prediction = predictor.predict(vect_text)
 
 			# When model has successfully run, will print prediction
